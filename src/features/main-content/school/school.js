@@ -4,10 +4,10 @@ import './school-component.css';
 
 const School = (props) => {
 
-  const { title, src, btnClass, buttonTitle, description, showMore, isShowLess, buttonShowDescription, buttonHideDescription, likes, addLike } = props;
+  const { title, src, btnClass, buttonTitle, description, showMore, isShowLess, buttonShowDescription, buttonHideDescription, likes, dislikes, handleLikeDislike } = props;
 
-  console.log('SchoolList - props -> ', props);
-  console.log('SchoolList - props -> ', title);
+  // console.log('SchoolList - props -> ', props);
+  // console.log('SchoolList - props -> ', title);
   // console.log('SchoolList - props -> ', studies);
 
   return (
@@ -17,12 +17,12 @@ const School = (props) => {
         <h1>{ title }</h1>
         <div className='like-wrapper'>
                     <span className='like-wrapper_good'>
-                        <i className="fa fa-thumbs-up likes-marker" onClick={ addLike.bind(null, title) }></i>
+                        <i className="fa fa-thumbs-up likes-marker" onClick={ handleLikeDislike.bind(null, title, 'likes') }></i>
                         <span className='likes-quantity'>{ likes }</span>
                     </span>
           <span className='like-wrapper_bad'>
-                        <i className='fa fa-thumbs-down likes-marker'></i>
-                        <span className='likes-quantity'>{ 0 }</span>
+                        <i className='fa fa-thumbs-down likes-marker' onClick={ handleLikeDislike.bind(null, title, 'dislikes') }></i>
+                        <span className='likes-quantity'>{ dislikes }</span>
                     </span>
         </div>
         <div className='clearfix description-wrapper'>

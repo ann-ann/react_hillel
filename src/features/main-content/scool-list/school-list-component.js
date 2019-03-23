@@ -3,7 +3,7 @@ import School from '../school/school';
 
 const SchoolList = (props) => {
   // console.log('School - props - ', props);
-  const { title, studies, showMore, addLike } = props;
+  const { title, studies, showMore, handleLikeDislike } = props;
   // if (props.title) {
   //   return (
   //     <div className={props.class}>
@@ -28,7 +28,8 @@ const SchoolList = (props) => {
             showMore={ showMore }
             isShowLess={ school.isShowLess }
             likes={ school.likes }
-            addLike={ addLike }
+            dislikes={ school.dislikes }
+            handleLikeDislike={ handleLikeDislike }
           />)
          }
 

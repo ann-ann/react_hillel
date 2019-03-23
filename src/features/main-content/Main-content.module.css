@@ -2,7 +2,6 @@
     color: deeppink;
     font-size: 48px;
     text-align: center;
-    margin-top: 200px;
 }
 
 .newClass {
@@ -10,4 +9,12 @@
     font-size: 36px;
     text-align: center;
     margin-top: 100px;
+}
+
+h4{
+  color: blue;
+}
+
+.get-weather{
+  !display: inline;
 }
