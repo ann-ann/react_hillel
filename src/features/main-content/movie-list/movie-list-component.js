@@ -2,8 +2,8 @@ import React from 'react';
 import Movie from '../movie/movie';
 
 const MovieList = (props) => {
-  const { title, movies, className, showMore, handleLikeDislike } = props;
-  console.log(props);
+  const { title, movies, className, showMore, handleLikeDislike, overview_text } = props;
+
   return (
    <div className={ className }>
      <h3>{ title }</h3>
@@ -11,16 +11,14 @@ const MovieList = (props) => {
        movies.map( movie => {
           return (<Movie
             original_title={movie.original_title}
-            backdrop_path={movie.backdrop_path}
             key={movie.id}
-            genre_ids={movie.genre_ids}
+            genres={movie.genres}
             adult={movie.adult}
             original_language={movie.original_language}
             poster_path={movie.poster_path}
             popularity={movie.popularity}
             release_date={ movie.release_date }
             title={ movie.title }
-            video={ movie.video }
             vote_average={ movie.vote_average }
             vote_count={ movie.vote_count }
             overview={ movie.overview }
@@ -29,6 +27,7 @@ const MovieList = (props) => {
             handleLikeDislike={ handleLikeDislike }
             likes={ movie.likes }
             dislikes={ movie.dislikes }
+            overview_text= { overview_text }
           />)
          }
 

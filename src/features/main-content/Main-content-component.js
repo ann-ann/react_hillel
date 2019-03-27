@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import styles from './Main-content.module.css';
-import SchoolList from './scool-list/school-list-component';
+// import SchoolList from './scool-list/school-list-component';
 import MovieList from './movie-list/movie-list-component';
 import Search from './Search';
 import constants from '../../core/constants';
 import axios from '../../core/axios';
 
 const studies = constants.studies;
+const genres = constants.genres;
 
 class MainContent extends Component {
   constructor(props) {
@@ -64,8 +65,7 @@ class MainContent extends Component {
           self.setState({
             weatherResponse: data.weather[0]['main'] + ', ' + data.weather[0]['description'] + ', temp: ' + data.main['temp'] + 'C, wind: ' + data.wind['speed'] + 'M/S',
             weatherImage: <img src={ 'http://openweathermap.org/img/w/' + data.weather[0]['icon'] + '.png'} alt='logo' className='index-logo'/>
-          })
-          console.log(response.data);
+          });
         })
         .catch(function(error) {
           console.log('error ' + error);
@@ -92,11 +92,19 @@ class MainContent extends Component {
           c.likes = 0;
           c.dislikes = 0;
           c.isShowLess = true;
+          c.genres = [];
+          c.genre_ids.forEach(function(id) {
+            genres.forEach(genre => {
+              if(genre['id'] === id){
+                c.genres.push(genre['name']);
+              }
+            });
+          });
+
           return c;
         });
 
         self.setState({ movies: movies })
-        console.log(response.data.results);
       })
       .catch(function(error) {
         console.log('error ' + error);
@@ -124,6 +132,7 @@ class MainContent extends Component {
             movies={this.state.movies}
             showMore={ this.showMore }
             handleLikeDislike={ this.handleLikeDislike }
+            overview_text='Overview'
           />
         </div>
       )

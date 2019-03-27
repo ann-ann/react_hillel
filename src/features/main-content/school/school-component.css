@@ -51,3 +51,16 @@
 .show {
     display: block;
 }
+
+.release-date{
+  color: black;
+}
+
+.movie_data{
+  text-align: left;
+}
+
+b{
+  color: blue;
+}
+

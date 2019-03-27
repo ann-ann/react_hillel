@@ -4,12 +4,8 @@ import Button from '../../../global/button'
 
 const Movie = (props) => {
 
-  const { original_title, backdrop_path, genre_ids, adult, original_language, poster_path, overview, handleLikeDislike,
-          popularity, release_date, title, video, vote_average, vote_count, isShowLess, showMore, likes, dislikes } = props;
-
-  // console.log('SchoolList - props -> ', props);
-  // console.log('SchoolList - props -> ', title);
-  // console.log('SchoolList - props -> ', studies);
+  const { original_title, genres, adult, original_language, poster_path, overview, handleLikeDislike,
+          popularity, release_date, title, vote_average, vote_count, isShowLess, showMore, likes, dislikes, overview_text } = props;
 
   return (
     <div className='clearfix description-wrapper'>
@@ -33,8 +29,18 @@ const Movie = (props) => {
             { isShowLess ? 'show more' : 'X'}
           </Button>
 
-          <div className={ isShowLess ? 'hide' : 'show' + ' description-wrapper_text' } >
-            { overview }
+          <div className={ 'description-wrapper_text ' + (isShowLess ? 'hide' : 'show') } >
+            <div className="movie_data">
+              <div className="release_date"><b>Release date:</b> { release_date }</div>
+              <div><b>Vote:</b> { vote_average }, <b>Vote count:</b> { vote_count }</div>
+              <div><b>Adult:</b> { adult ? 'Yes' : 'No' }</div>
+              <div><b>Genre:</b> { genres.join(', ') }</div>
+              <div><b>Original Language:</b> { original_language }</div>
+              <div><b>Popularity:</b> { popularity }</div>
+            </div>
+            <h4>{ overview_text }</h4>
+            <div className="overview">{ overview }</div>
+
           </div>
 
         </div>
