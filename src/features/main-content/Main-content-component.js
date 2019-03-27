@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import styles from './Main-content.module.css';
 import SchoolList from './scool-list/school-list-component';
+import MovieList from './movie-list/movie-list-component';
 import Search from './Search';
 import constants from '../../core/constants';
 import axios from '../../core/axios';
-// import axios from 'axios';
 
 const studies = constants.studies;
 
@@ -16,7 +16,8 @@ class MainContent extends Component {
       limit: 15,
       searchValue: '',
       weatherResponse: '',
-      weatherImage: ''
+      weatherImage: '',
+      moviesData: []
     }
   }
 
@@ -77,10 +78,10 @@ class MainContent extends Component {
 
 
   getMovies = (event) => {
-
     event.preventDefault();
     console.log('getMovies');
 
+    var self = this;
     const moviesData = {
       params: {
         limit: this.state.limit,
@@ -91,6 +92,7 @@ class MainContent extends Component {
 
     axios.get('/discover/movie', moviesData)
       .then(function (response) {
+        self.setState({ moviesData: response.data.results })
         console.log(response.data.results);
       })
       .catch(function(error) {
@@ -103,15 +105,21 @@ class MainContent extends Component {
     if (this.props.title) {
       return (
         <div className={styles.someClass + ' container'}>
-        <div>
-          <h4 className="get-weather">getMovies</h4>
-          <button className='btn' onClick={this.getMovies}>Get movies</button>
-        </div>
           <Search
             handeSearch={ this.handeSearch }
             value={ this.state.searchValue }
             weatherResponse={this.state.weatherResponse }
             weatherImage={this.state.weatherImage}
+          />
+          <div>
+            <h4 className="get-weather">getMovies</h4>
+            <button className='btn' onClick={this.getMovies}>Get movies</button>
+          </div>
+          <MovieList
+            title='Movies'
+            class={styles.newClass}
+            movies={this.state.moviesData}
+            showMore={ this.showMore }
           />
           <SchoolList
             studies={ this.state.studies }

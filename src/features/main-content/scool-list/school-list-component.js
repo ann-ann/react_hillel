@@ -2,15 +2,9 @@ import React from 'react';
 import School from '../school/school';
 
 const SchoolList = (props) => {
-  // console.log('School - props - ', props);
+
   const { title, studies, showMore, handleLikeDislike } = props;
-  // if (props.title) {
-  //   return (
-  //     <div className={props.class}>
-  //       <h3>{ props.title }</h3>
-  //     </div>
-  //   )
-  // }
+
   return (
    <div className={ props.className }>
      <h3>{ title }</h3>
