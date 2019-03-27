@@ -4,7 +4,7 @@ import SchoolList from './scool-list/school-list-component';
 import Search from './Search';
 import constants from '../../core/constants';
 import axios from '../../core/axios';
-
+// import axios from 'axios';
 
 const studies = constants.studies;
 
@@ -61,9 +61,37 @@ class MainContent extends Component {
   // };
 
   handeSearch = (event) =>{
-    console.log(event.target.value);
     this.setState({searchValue: event.target.value});
+
+    let request = event.target.value;
+
+    if(request.length >= 3){
+      this.setState({searchValue: request});
+
+      // axios.create({
+      //     baseURL: 'http://api.openweathermap.org/data/2.5/',
+      // });
+
+      const weatherData = {
+        params: {
+          q: request,
+          APPID: '7a9285deea31c55e823544c36192c8f8'
+        }
+      };
+
+      axios.get('http://api.openweathermap.org/data/2.5/weather?', weatherData)
+        .then(function (response) {
+          console.log(response.data.weather[0]);
+        })
+        .catch(function(error) {
+          console.log('error ' + error);
+        });
+    }
   };
+
+  displayWeather =() => {
+
+  }
 
   getMovies = (event) => {
 
