@@ -14,7 +14,9 @@ class MainContent extends Component {
     this.state = {
       studies,
       limit: 15,
-      searchValue: ''
+      searchValue: '',
+      weatherResponse: '',
+      weatherImage: ''
     }
   }
 
@@ -41,47 +43,30 @@ class MainContent extends Component {
     });
   };
 
-  // getWeather = (event) =>{
-  //   console.log('Get weather');
-  //   event.preventDefault();
-
-  //   let link = `https://api.openweathermap.org/data/2.5/weather?q=`;
-  //   let city = 'Calgary';
-  //   let api = 'APPID=7a9285deea31c55e823544c36192c8f8';
-
-  //   axios.get(`${link}${city}&${api}&units=metric`, {
-  //   })
-  //   .then(data=> {
-  //     console.log(data);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   })
-
-  // };
-
   handeSearch = (event) =>{
     this.setState({searchValue: event.target.value});
 
     let request = event.target.value;
+    let data = {};
+    var self = this;
 
     if(request.length >= 3){
-      this.setState({searchValue: request});
-
-      // axios.create({
-      //     baseURL: 'http://api.openweathermap.org/data/2.5/',
-      // });
-
       const weatherData = {
         params: {
           q: request,
-          APPID: '7a9285deea31c55e823544c36192c8f8'
+          APPID: '7a9285deea31c55e823544c36192c8f8',
+          units: 'metric'
         }
       };
 
       axios.get('http://api.openweathermap.org/data/2.5/weather?', weatherData)
         .then(function (response) {
-          console.log(response.data.weather[0]);
+          data = response.data;
+          self.setState({
+            weatherResponse: data.weather[0]['main'] + ', ' + data.weather[0]['description'] + ', temp: ' + data.main['temp'] + 'C, wind: ' + data.wind['speed'] + 'M/S',
+            weatherImage: <img src={ 'http://openweathermap.org/img/w/' + data.weather[0]['icon'] + '.png'} alt='logo' className='index-logo'/>
+          })
+          console.log(response.data);
         })
         .catch(function(error) {
           console.log('error ' + error);
@@ -89,9 +74,7 @@ class MainContent extends Component {
     }
   };
 
-  displayWeather =() => {
 
-  }
 
   getMovies = (event) => {
 
@@ -124,10 +107,11 @@ class MainContent extends Component {
           <h4 className="get-weather">getMovies</h4>
           <button className='btn' onClick={this.getMovies}>Get movies</button>
         </div>
-          <h1>{ this.props.title }</h1>
           <Search
             handeSearch={ this.handeSearch }
             value={ this.state.searchValue }
+            weatherResponse={this.state.weatherResponse }
+            weatherImage={this.state.weatherImage}
           />
           <SchoolList
             studies={ this.state.studies }
