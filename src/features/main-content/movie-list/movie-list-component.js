@@ -2,9 +2,8 @@ import React from 'react';
 import Movie from '../movie/movie';
 
 const MovieList = (props) => {
-  console.log('MovieList - props - ', props);
-  const { title, movies, className, showMore } = props;
-
+  const { title, movies, className, showMore, handleLikeDislike } = props;
+  console.log(props);
   return (
    <div className={ className }>
      <h3>{ title }</h3>
@@ -26,7 +25,10 @@ const MovieList = (props) => {
             vote_count={ movie.vote_count }
             overview={ movie.overview }
             showMore={ showMore }
-            isShowLess={ false }
+            isShowLess={ movie.isShowLess }
+            handleLikeDislike={ handleLikeDislike }
+            likes={ movie.likes }
+            dislikes={ movie.dislikes }
           />)
          }
 

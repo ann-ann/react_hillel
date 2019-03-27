@@ -17,29 +17,27 @@ class MainContent extends Component {
       searchValue: '',
       weatherResponse: '',
       weatherImage: '',
-      moviesData: []
+      movies: []
     }
   }
 
   showMore = (title) => {
     this.setState({
-        studies: this.state.studies.map(c => {
-            return c.title === title
-                ? { ...c, isShowLess: !c.isShowLess }
-                : c;
+      movies: this.state.movies.map(c => {
+        return c.title === title
+          ? { ...c, isShowLess: !c.isShowLess }
+          : c;
         }),
     });
   };
 
   handleLikeDislike = (title, prop) => {
     this.setState({
-        studies: this.state.studies.map(c => {
-
-            if(c.title === title){
-              c[prop] = c[prop] + 1;
-            }
-            return c;
-
+      movies: this.state.movies.map(c => {
+        if(c.title === title){
+          c[prop] = c[prop] + 1;
+        }
+        return c;
         }),
     });
   };
@@ -79,8 +77,6 @@ class MainContent extends Component {
 
   getMovies = (event) => {
     event.preventDefault();
-    console.log('getMovies');
-
     var self = this;
     const moviesData = {
       params: {
@@ -89,10 +85,17 @@ class MainContent extends Component {
       }
     };
 
-
     axios.get('/discover/movie', moviesData)
       .then(function (response) {
-        self.setState({ moviesData: response.data.results })
+        let movies = response.data.results;
+        movies.map(c => {
+          c.likes = 0;
+          c.dislikes = 0;
+          c.isShowLess = true;
+          return c;
+        });
+
+        self.setState({ movies: movies })
         console.log(response.data.results);
       })
       .catch(function(error) {
@@ -118,13 +121,7 @@ class MainContent extends Component {
           <MovieList
             title='Movies'
             class={styles.newClass}
-            movies={this.state.moviesData}
-            showMore={ this.showMore }
-          />
-          <SchoolList
-            studies={ this.state.studies }
-            title='School List'
-            class={styles.newClass}
+            movies={this.state.movies}
             showMore={ this.showMore }
             handleLikeDislike={ this.handleLikeDislike }
           />
