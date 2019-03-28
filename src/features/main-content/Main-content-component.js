@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styles from './Main-content.module.css';
 // import SchoolList from './scool-list/school-list-component';
 import MovieList from './movie-list/movie-list-component';
-import Search from './Search';
+import Search from './search/Search';
 import constants from '../../core/constants';
 import axios from '../../core/axios';
 
@@ -68,7 +68,10 @@ class MainContent extends Component {
           });
         })
         .catch(function(error) {
-          console.log('error ' + error);
+          self.setState({
+            weatherResponse: <div className={ styles.error }>{ error.toString() }</div>,
+          });
+
         });
     }
   };
@@ -128,7 +131,6 @@ class MainContent extends Component {
           </div>
           <MovieList
             title='Movies'
-            class={styles.newClass}
             movies={this.state.movies}
             showMore={ this.showMore }
             handleLikeDislike={ this.handleLikeDislike }

@@ -15,13 +15,6 @@ h4{
   color: blue;
 }
 
-.get-weather{
-  display: inline;
-      border: solid 2px #0a0a6f;
-}
-
-.weather-block{
-  font-size: 20px !important;
-  border: solid 2px #0a0a6f;
-  border-radius: 15px;
+.error {
+  color: red;
 }
