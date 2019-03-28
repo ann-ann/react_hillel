@@ -3,6 +3,7 @@ import styles from './Main-content.module.css';
 // import SchoolList from './scool-list/school-list-component';
 import MovieList from './movie-list/movie-list-component';
 import Search from './search/Search';
+import Weather from './weather/Weather';
 import constants from '../../core/constants';
 import axios from '../../core/axios';
 
@@ -43,7 +44,7 @@ class MainContent extends Component {
     });
   };
 
-  handeSearch = (event) =>{
+  handleWeatherSearch = (event) =>{
     this.setState({searchValue: event.target.value});
 
     let request = event.target.value;
@@ -70,6 +71,7 @@ class MainContent extends Component {
         .catch(function(error) {
           self.setState({
             weatherResponse: <div className={ styles.error }>{ error.toString() }</div>,
+            weatherImage: ''
           });
 
         });
@@ -120,10 +122,9 @@ class MainContent extends Component {
       return (
         <div className={styles.someClass + ' container'}>
           <Search
-            handeSearch={ this.handeSearch }
+            handeSearch={ this.handleWeatherSearch }
             value={ this.state.searchValue }
-            weatherResponse={this.state.weatherResponse }
-            weatherImage={this.state.weatherImage}
+            searchResults={<Weather weatherResponse={this.state.weatherResponse} weatherImage={this.state.weatherImage} />}
           />
           <div>
             <h4 className="get-weather">getMovies</h4>

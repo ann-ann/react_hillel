@@ -2,11 +2,7 @@ h4{
   color: blue;
 }
 
-.getWeather{
-  display: inline;
-}
-
-.weatherBlock{
+.searchBlock{
   font-size: 20px !important;
   border: solid 2px #0a0a6f;
   border-radius: 15px;
